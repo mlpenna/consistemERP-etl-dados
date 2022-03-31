@@ -1,0 +1,80 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Leagel - RPA</title>
+  <!-- <link rel="stylesheet" href="css/styles.css?v=1.0"> -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>Elts CSW:</h1>
+    <button type="button" id="ccese320">ccese320</button>
+    <button type="button" id="ccesu665">ccesu665</button>
+    <button type="button" id="gcleese610">gcleese610</button>
+    <button type="button" id="gcleft300">gcleft300</button>
+    <button type="button" id="gcleft300">aslepme600</button>
+    <hr>
+    <h1>Elts Sigma:</h1>
+    <button type="button" id="sigmaEstoque">Estoque</button>
+    <hr>
+
+    <button type="button" id="all">All</button>
+    <h1>Cron Status:</h1>
+    <button type="button" id="status">Verificar Status</button>
+    <p id="cronStatus"></p>
+
+    <script>
+    $(document).ready(function() {
+      $("#ccese320").click(function(){
+        $.get("http://192.168.0.185:8080/elt/ccese320", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      }); 
+      $("#ccesu665").click(function(){
+        $.get("http://192.168.0.185:8080/elt/ccesu665", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+      $("#gcleft300").click(function(){
+        $.get("http://192.168.0.185:8080/elt/gcleft300", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+      $("#gcleese610").click(function(){
+        $.get("http://192.168.0.185:8080/elt/gcleese610", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+      $("#aslepme600").click(function(){
+        $.get("http://192.168.0.185:8080/elt/aslepme600", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+      $("#sigmaEstoque").click(function(){
+        $.get("http://192.168.0.185:8080/elt/sigmaEstoque", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+      });
+      $("#all").click(function(){
+        $.get("http://192.168.0.185:8080/elt/all", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+        
+      });
+      $("#status").click(function(){
+        $.post("http://192.168.0.185:8080/teste", function(data, status){
+          // alert("Data: " + data + "\nStatus: " + status);
+        });
+        
+      });
+    });
+    </script>
+
+  <!-- <script src="js/scripts.js"></script> -->
+</body>
+</html>
