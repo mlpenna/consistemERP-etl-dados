@@ -114,30 +114,9 @@ func ImportToDwtAslepme600(records [][]string) {
 	}
 	defer db.Close()
 
-	//Clear Table
-	// sqlStatement := `
-	// DELETE FROM public.dwt1_csw_aslepme600`
-
-	// _, err = db.Exec(sqlStatement)
-	// if err != nil {
-	// 	log.Println(err)
-	// }
 
 	var r Aslepme600Record
 	for i := range records {
-		// log.Println(records[i][0])
-		// log.Println(records[i][1])
-		// fmt.Println(records[i][2])
-		// fmt.Println(records[i][3])
-		// fmt.Println(records[i][4])
-		// fmt.Println(records[i][5])
-		// fmt.Println(records[i][6])
-		// fmt.Println(records[i][7])
-		// fmt.Println(records[i][8])
-		// fmt.Println(records[i][9])
-		// fmt.Println(records[i][10])
-		// fmt.Println(records[i][11])
-		// fmt.Println(records[i][12])
 
 		currentTime := time.Now()
 		r.Asle600TimeStamp = currentTime.Format("02/01/2006 3:4:5")

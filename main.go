@@ -14,22 +14,12 @@ import (
 var c = cron.New()
 
 func main() {
-	f, err := os.OpenFile("/home/matheus/Documents/Apps/RPA/csw-rpa-elt/log/log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
-	if err != nil {
-		log.Fatalf("error opening file: %v", err)
-	}
-	defer f.Close()
-	log.SetOutput(f)
 
-	// elts.EltAslepme600()
-	// utils.CheckMousePos()
-
-	// c.AddFunc("0 6 * * *", elts.EltGclese610)
-	// c.AddFunc("30 6 * * *", elts.EltCcesu665)
-	// c.AddFunc("45 6 * * *", elts.EltCcese320)
-	// c.AddFunc("0 7 * * *", elts.EltGcleft300)
+	c.AddFunc("0 6 * * *", elts.EltGclese610)
+	c.AddFunc("30 6 * * *", elts.EltCcesu665)
+	c.AddFunc("45 6 * * *", elts.EltCcese320)
+	c.AddFunc("0 7 * * *", elts.EltGcleft300)
 	c.AddFunc("0 5 * * 1", elts.EltAslepme600) //Toda segunda-feira as 5:00
-
 	c.AddFunc("0 6 * * *", elts.EltSigmaEstoque)
 
 	c.Start()
@@ -42,7 +32,6 @@ func main() {
 	fmt.Println(path)
 
 	r := mux.NewRouter()
-	r.Handle("/", http.FileServer(http.Dir("/home/matheus/Documents/Apps/RPA/csw-rpa-elt/build/static")))
 	r.HandleFunc("/elt/ccesu665", handlerCcesu665)
 	r.HandleFunc("/elt/ccese320", handlerCcese320)
 	r.HandleFunc("/elt/gcleese610", handlerGcleese610)
@@ -87,13 +76,5 @@ func handlerAll(w http.ResponseWriter, r *http.Request) {
 	elts.EltCcesu665()
 	elts.EltCcese320()
 	elts.EltGcleft300()
-	// elts.EltAslepme600()
-}
-
-func testePost(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Method)
-}
-
-func testeGet(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(r.Method)
+	elts.EltAslepme600()
 }

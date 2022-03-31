@@ -63,12 +63,7 @@ func EltCcesu665() {
 func ExportCsvCcesu665() {
 
 	time.Sleep(2 * time.Second)
-	//Mouse pos menu favoritos: 143, 308
-	// robotgo.KeyTap("esc")
-	// time.Sleep(500 * time.Millisecond)
-	// robotgo.MoveMouse(143, 308)
-	// time.Sleep(500 * time.Millisecond)
-	// robotgo.MouseClick("left", false)
+
 	time.Sleep(2 * time.Second)
 	robotgo.KeyTap("enter")
 	time.Sleep(2 * time.Second)
@@ -85,7 +80,6 @@ func ExportCsvCcesu665() {
 	robotgo.KeyTap("enter")
 	time.Sleep(2 * time.Second)
 	robotgo.KeyTap("enter")
-	// robotgo.KeyTap("enter")
 	time.Sleep(2 * time.Second)
 	robotgo.MoveMouse(590, 452) //confirma exportação
 	time.Sleep(2 * time.Second)

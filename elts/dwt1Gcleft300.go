@@ -129,19 +129,7 @@ func ImportToDwtGcleft300(records [][]string) {
 
 	var r Gcleft300Record
 	for i := range records {
-		// log.Println(records[i][0])
-		// log.Println(records[i][1])
-		// fmt.Println(records[i][2])
-		// fmt.Println(records[i][3])
-		// fmt.Println(records[i][4])
-		// fmt.Println(records[i][5])
-		// fmt.Println(records[i][6])
-		// fmt.Println(records[i][7])
-		// fmt.Println(records[i][8])
-		// fmt.Println(records[i][9])
-		// fmt.Println(records[i][10])
-		// fmt.Println(records[i][11])
-		// fmt.Println(records[i][12])
+
 		var t time.Time
 		r.Gcl300CodPed, _ = strconv.Atoi(records[i][0])
 		r.Gcl300CodCliente, _ = strconv.Atoi(records[i][1])
@@ -158,7 +146,6 @@ func ImportToDwtGcleft300(records [][]string) {
 		r.Gcl300Media, _ = strconv.Atoi(records[i][9])
 		r.Gcl300Justi = utils.ConvertW1252ToUTF8(records[i][10])
 		r.Gcl300Obs = utils.ConvertW1252ToUTF8(records[i][11])
-		// fmt.Println(r.Gcl300CodCliente)
 
 		sqlStatement := `
 			INSERT INTO public.dwt1_csw_gcleft300 (cod_ped,cod_cliente,desc_client,cod_rep,desc_rep,valor_ped,data_emi,data_prev,data_fat,media,justificativa,obs)
