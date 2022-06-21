@@ -122,7 +122,7 @@ func ReadCcesu665Csv() [][]string {
 		}
 		records = append(records, record)
 	}
-	records = records[1:] //remove cabe
+	records = records[1:]
 	// fmt.Println(len(records))
 	return records
 }
