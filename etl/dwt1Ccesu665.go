@@ -46,61 +46,6 @@ type Ccesu665Record struct {
 	Cc665DataRecebimento string
 }
 
-func EltCcesu665() {
-	log.SetPrefix("EltCcesu665: ")
-	utils.CswLogin()
-	time.Sleep(5 * time.Second)
-	utils.CswAbrirRotina(config.Ccesu665Nome)
-	ExportCsvCcesu665()
-	records := ReadCcesu665Csv()
-
-	ImportToDwtCcesu665(records)
-	time.Sleep(5 * time.Second)
-	utils.CswLogout()
-	time.Sleep(5 * time.Second)
-}
-
-func ExportCsvCcesu665() {
-
-	time.Sleep(2 * time.Second)
-
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.MoveMouse(590, 452) //confirma exportação
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(50 * time.Second)
-	robotgo.MoveMouse(452, 657) //export csv
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(30 * time.Second)
-	robotgo.TypeStr(config.Ccesu665Nome)
-	time.Sleep(6 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(6 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(6 * time.Second)
-	robotgo.MoveMouse(87, 81) //botao atualiza navegador (rotina travada)
-	time.Sleep(5 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(5 * time.Second)
-}
-
 func ReadCcesu665Csv() [][]string {
 	filename := config.Ccesu665Nome + ".csv"
 	var records [][]string
@@ -123,7 +68,6 @@ func ReadCcesu665Csv() [][]string {
 		records = append(records, record)
 	}
 	records = records[1:]
-	// fmt.Println(len(records))
 	return records
 }
 
@@ -137,14 +81,6 @@ func ImportToDwtCcesu665(records [][]string) {
 		log.Print(err)
 	}
 	defer db.Close()
-
-	sqlStatement := `
-DELETE FROM public.dwt1_csw_ccesu665 WHERE id > 287039`
-
-	_, err = db.Exec(sqlStatement)
-	if err != nil {
-		log.Print(err)
-	}
 
 	var r Ccesu665Record
 	for i := range records {
@@ -163,7 +99,6 @@ DELETE FROM public.dwt1_csw_ccesu665 WHERE id > 287039`
 			log.Print(err)
 		}
 		r.Cc665DataCadastro = t.Format("01/02/2006")
-
 		r.Cc665ItemPedido, _ = strconv.Atoi(records[i][2])
 		r.Cc665CodProduto, _ = strconv.Atoi(records[i][3])
 		r.Cc665DescProduto = utils.ConvertW1252ToUTF8(records[i][4])

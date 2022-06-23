@@ -34,44 +34,12 @@ type Gcleft300Record struct {
 }
 
 func EltGcleft300() {
-	log.SetPrefix("EltGcleft300: ")
 	utils.CswLogin()
-	time.Sleep(5 * time.Second)
 	utils.CswAbrirRotina(config.Gcleft300Nome)
-
 	ExportCsvGcleft300()
 	records := ReadGcleft300Csv()
-	fmt.Println(len(records))
 	ImportToDwtGcleft300(records)
-	time.Sleep(5 * time.Second)
 	utils.CswLogout()
-	time.Sleep(5 * time.Second)
-
-}
-
-func ExportCsvGcleft300() {
-
-	log.Println("Starting RPA for Gcleft300...")
-	time.Sleep(2 * time.Second)
-	robotgo.TypeStr("01122020")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(60 * time.Second)
-	robotgo.TypeStr(config.Gcleft300Nome)
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	utils.CswReloadBrowser()
-	time.Sleep(2 * time.Second)
-	log.Println("Ending RPA for Gcleft300...")
 }
 
 func ReadGcleft300Csv() [][]string {
@@ -117,15 +85,6 @@ func ImportToDwtGcleft300(records [][]string) {
 		log.Println(err)
 	}
 	defer db.Close()
-
-	//Clear Table
-	sqlStatement := `
-	DELETE FROM public.dwt1_csw_gcleft300` //103247 ultimo Item empresa 1
-
-	_, err = db.Exec(sqlStatement)
-	if err != nil {
-		log.Println(err)
-	}
 
 	var r Gcleft300Record
 	for i := range records {

@@ -15,4 +15,5 @@ e automação de comandos na tela.
 ### ETL
 
 Após extraídos, os dados presentes nos arquivos .csv são lidos, tratados, e carregados em um banco de dados PostgreSQL para serem consumidos pela área de dados.
+ 
 

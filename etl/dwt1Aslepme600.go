@@ -31,43 +31,12 @@ type Aslepme600Record struct {
 }
 
 func EltAslepme600() {
-	log.SetPrefix("EltAslepme600: ")
 	utils.CswLogin()
-	time.Sleep(5 * time.Second)
 	utils.CswAbrirRotina(config.Aslepme600Nome)
-
 	ExportCsvAslepme600()
 	records := ReadAslepme600Csv()
-	fmt.Println(len(records))
 	ImportToDwtAslepme600(records)
-	time.Sleep(5 * time.Second)
 	utils.CswLogout()
-	time.Sleep(5 * time.Second)
-
-}
-
-func ExportCsvAslepme600() {
-
-	log.Println("Starting RPA for Aslepme600...")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	time.Sleep(120 * time.Second)
-	robotgo.MoveMouse(450, 700)
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(30 * time.Second)
-	robotgo.TypeStr(config.Aslepme600Nome)
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	utils.CswReloadBrowser()
-	time.Sleep(2 * time.Second)
-	log.Println("Ending RPA for Aslepme600...")
 }
 
 func ReadAslepme600Csv() [][]string {
@@ -89,15 +58,13 @@ func ReadAslepme600Csv() [][]string {
 		}
 		if err != nil {
 			log.Println(err)
-			// record = append(record, " ")
 			break
 		}
 		fmt.Println(len(record))
 		fmt.Println(record)
 		records = append(records, record)
 	}
-	records = records[1:] //remove cabe
-	// fmt.Println(records)
+	records = records[1:]
 	log.Println("Finished reading .csv file. Read: ", len(records[1:]))
 	return records
 }
@@ -113,7 +80,6 @@ func ImportToDwtAslepme600(records [][]string) {
 		log.Println(err)
 	}
 	defer db.Close()
-
 
 	var r Aslepme600Record
 	for i := range records {

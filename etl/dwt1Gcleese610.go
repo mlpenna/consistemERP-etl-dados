@@ -28,55 +28,11 @@ type Gcleese610Record struct {
 }
 
 func EltGclese610() {
-	log.SetPrefix("EltGclese610: ")
 	utils.CswLogin()
-	time.Sleep(5 * time.Second)
-
 	ExportCsvGcleese610()
 	records := ReadGcleese610Csv()
 	ImportToDwt(records)
-	time.Sleep(5 * time.Second)
 	utils.CswLogout()
-	time.Sleep(5 * time.Second)
-
-}
-
-func ExportCsvGcleese610() {
-
-	log.Println("Starting RPA for GCLEESE610...")
-	time.Sleep(2 * time.Second)
-	//Mouse pos menu favoritos: 164, 307
-	robotgo.KeyTap("esc")
-	time.Sleep(2 * time.Second)
-	robotgo.MoveMouse(177, 288)
-	robotgo.MouseClick("left", false)
-	time.Sleep(2 * time.Second)
-	robotgo.MoveMouse(225, 424) //botao TODOS
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(5 * time.Second)
-	robotgo.MoveMouse(489, 612) //botao exportar CSV
-	time.Sleep(10 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(10 * time.Second)
-	robotgo.TypeStr(config.Gcleese610Nome)
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(5 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(5 * time.Second)
-	robotgo.MoveMouse(1143, 185) //botao fecha rotina
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	log.Println("Ending RPA for GCLEESE610...")
 }
 
 func ReadGcleese610Csv() [][]string {
@@ -117,16 +73,7 @@ func ImportToDwt(records [][]string) {
 		log.Println(err)
 	}
 	defer db.Close()
-
-	//Clear Table
-	sqlStatement := `
-	DELETE FROM public.dwt1_consumo_mp_emb WHERE id > 103247` //103247 ultimo Item empresa 1
-
-	_, err = db.Exec(sqlStatement)
-	if err != nil {
-		log.Println(err)
-	}
-
+	
 	var r Gcleese610Record
 	for i := range records {
 		var t time.Time

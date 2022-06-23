@@ -34,67 +34,12 @@ type Ccese320Record struct {
 }
 
 func EltCcese320() {
-	log.SetPrefix("EltCcese320: ")
 	utils.CswLogin()
-	time.Sleep(5 * time.Second)
 	utils.CswAbrirRotina(config.Ccese320Nome)
-
 	ExportCsvCcese320()
 	records := ReadCcese320Csv()
-	// fmt.Print(records)
 	ImportToDwtCcese320(records)
-	time.Sleep(4 * time.Second)
 	utils.CswLogout()
-	time.Sleep(2 * time.Second)
-}
-
-func ExportCsvCcese320() {
-
-	time.Sleep(2 * time.Second)
-	robotgo.TypeStr("01122020")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.TypeStr("2.01")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.TypeStr("2.02")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("1")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("tab")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("down")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("down")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.MoveMouse(640, 434)
-	time.Sleep(2 * time.Second)
-	robotgo.MouseClick("left", false)
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(8 * time.Second)
-	robotgo.TypeStr(config.Ccese320Nome)
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	time.Sleep(2 * time.Second)
-	robotgo.KeyTap("enter")
-	utils.CswReloadBrowser()
 }
 
 func ReadCcese320Csv() [][]string {
@@ -118,8 +63,7 @@ func ReadCcese320Csv() [][]string {
 		}
 		records = append(records, record)
 	}
-	records = records[1:] //remove cabe
-	// log.Println(len(records))
+	records = records[1:]
 	return records
 }
 
@@ -134,43 +78,29 @@ func ImportToDwtCcese320(records [][]string) {
 	}
 	defer db.Close()
 
-	sqlStatement := `
-DELETE FROM public.dwt1_csw_ccese320 WHERE id > 88999`
-
-	_, err = db.Exec(sqlStatement)
-	if err != nil {
-		log.Print(err)
-	}
-
 	var r Ccese320Record
 	for i := range records {
 		var t time.Time
-
 		r.CC320IdFornecedor, err = strconv.Atoi(records[i][0])
 		if err != nil {
 			log.Print(err)
 		}
-
 		r.CC320DescFornecedor = utils.ConvertW1252ToUTF8(records[i][1])
-
 		t, err = time.Parse("02/01/06", records[i][2])
 		if err != nil {
 			log.Print(err)
 		}
 		r.CC320DataEntrada = t.Format("01/02/2006")
-
 		t, err = time.Parse("02/01/06", records[i][3])
 		if err != nil {
 			log.Print(err)
 		}
 		r.CC320DataEmissao = t.Format("01/02/2006")
-
 		t, err = time.Parse("02/01/06", records[i][5])
 		if err != nil {
 			log.Print(err)
 		}
 		r.CC320DataPrevista = t.Format("01/02/2006")
-
 		r.CC320NF, _ = strconv.Atoi(records[i][6])
 		r.CC320NFItem, _ = strconv.Atoi(records[i][7])
 		r.CC320Pedido, _ = strconv.Atoi(records[i][8])
@@ -181,7 +111,6 @@ DELETE FROM public.dwt1_csw_ccese320 WHERE id > 88999`
 		if err != nil {
 			log.Print(err)
 		}
-		// fmt.Println(r)
 		sqlStatement := `
 		INSERT INTO public.dwt1_csw_ccese320 (id_fornecedor,desc_fornecedor,data_entrada,data_emissao,data_prevista,nf,nf_item,
 		pedido,pedido_item,cod_material,desc_material,qtde_entrada)

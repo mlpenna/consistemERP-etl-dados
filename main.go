@@ -37,14 +37,11 @@ func main() {
 	r.HandleFunc("/elt/gcleese610", handlerGcleese610)
 	r.HandleFunc("/elt/gcleft300", handlerGcleft300)
 	r.HandleFunc("/elt/aslepme600", handlerAslepme600)
-
 	r.HandleFunc("/elt/sigmaEstoque", handlerSigmaEstoque)
-
 	r.HandleFunc("/elt/all", handlerAll)
 	r.HandleFunc("/teste", testePost).Methods("POST")
 	r.HandleFunc("/teste", testeGet).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", r))
-
 }
 
 func handlerCcese320(w http.ResponseWriter, r *http.Request) {
