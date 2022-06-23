@@ -39,8 +39,6 @@ func main() {
 	r.HandleFunc("/elt/aslepme600", handlerAslepme600)
 	r.HandleFunc("/elt/sigmaEstoque", handlerSigmaEstoque)
 	r.HandleFunc("/elt/all", handlerAll)
-	r.HandleFunc("/teste", testePost).Methods("POST")
-	r.HandleFunc("/teste", testeGet).Methods("GET")
 	log.Fatal(http.ListenAndServe(":8080", r))
 }
 
