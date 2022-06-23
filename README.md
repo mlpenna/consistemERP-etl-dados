@@ -1,5 +1,9 @@
 # RPA e ETL para Consistem ERP
-Um pequeno projeto em Go que implementa um RPA para extração de dados de algumas rotinas do [Consistem ERP](https://consistem.com.br/) e alguns ELTs para transportá-los a um BD PostgreSQL.
+
+[![made-with-Go](https://img.shields.io/badge/Made%20with-Go-1f425f.svg)](https://go.dev/)
+
+
+Um projeto em Go que implementa um RPA para extração de dados de algumas rotinas do [Consistem ERP](https://consistem.com.br/) e alguns ELTs para transportá-los a um BD PostgreSQL.
 
 O projeto possui três componentes principais:
 ### Agendador de tarefas
